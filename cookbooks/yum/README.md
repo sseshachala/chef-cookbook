@@ -37,11 +37,20 @@ EPEL attributes used in the `yum::epel` recipe, see
 * `yum['epel']['key']`
     - Name of the GPG key used for the repo.
 
+* `yum['epel']['baseurl']`
+    - Base URL to an EPEL mirror.
+
 * `yum['epel']['url']`
     - URL to the EPEL mirrorlist.
 
 * `yum['epel']['key_url']`
     - URL to the GPG key for the repo.
+
+* `yum['epel']['includepkgs']`
+    - list of packages you want to use for the repo.
+
+* `yum['epel']['exclude']`
+    - list of packages you do NOT want to use for the repo.
 
 The `node['yum']['epel_release']` attribute is removed, see the __epel__
 recipe information below.
@@ -57,6 +66,12 @@ remi attributes used in the `yum::remi` recipe, see
 
 * `yum['remi']['key_url']`
     - URL to the GPG key for the repo.
+
+* `yum['remi']['includepkgs']`
+    - list of packages you want to use for the repo.
+
+* `yum['remi']['exclude']`
+    - list of packages you do NOT want to use for the repo.
 
 Proxy settings used in yum.conf on RHEL family 5 and 6:
 
@@ -135,7 +150,7 @@ just work without modification in most use cases.
 
 # Resources/Providers
 
-## key
+## yum_key
 
 This LWRP handles importing GPG keys for YUM repositories. Keys can be
 imported by the `url` parameter or placed in `/etc/pki/rpm-gpg/` by a
@@ -166,10 +181,10 @@ yum_key "RPM-GPG-KEY-zenoss" do
 end
 ```
 
-### repository
+### yum_repository
 
 This LWRP provides an easy way to manage additional YUM repositories.
-GPG keys can be managed with the `key` LWRP.  The LWRP automatically
+GPG keys can be managed with the `yum_key` LWRP.  The LWRP automatically
 updates the package management cache upon the first run, when a new
 repo is added.
 
